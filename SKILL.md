@@ -1,10 +1,10 @@
 ---
-name: thesis-defense-ppt
+name: cn-defense-deck
 version: "1.0.0"
 description: >
   使用 python-pptx 生成中文学术答辩PPT（开题/中期/毕业答辩）。
   提供 ThesisDefensePPT 类，支持 10 种页面类型、富文本红色关键词、校徽 banner。
-  触发：用户提到"生成答辩PPT"、"开题答辩PPT"、"毕业答辩PPT"、"thesis defense PPT"、"学术PPT"、"答辩幻灯片"等。
+  触发：用户提到"生成答辩PPT"、"开题答辩PPT"、"毕业答辩PPT"、"thesis defense PPT"、"学术PPT"、"答辩幻灯片"、"答辩deck"等。
 license: MIT
 platforms: [windows]
 compatibility: "python-pptx, Pillow; PowerPoint COM for PDF export (Windows only), LibreOffice as cross-platform alternative"
@@ -12,14 +12,14 @@ metadata:
   category: document-creation
 ---
 
-# ThesisDefensePPT — 学术答辩PPT生成
+# cn-defense-deck — 学术答辩PPT生成
 
 基于 python-pptx 的学术答辩PPT生成，自包含类，无需模板。
 
 ## 文件结构
 
 ```
-thesis-defense-ppt/
+cn-defense-deck/
 ├── SKILL.md                      # 本文件 — 使用指南
 ├── scripts/
 │   ├── thesis_defense_ppt.py     # 完整类代码，直接复制使用
@@ -36,8 +36,6 @@ pip install python-pptx Pillow
 ## 快速使用
 
 ```python
-import sys, os
-sys.path.insert(0, "path/to/scripts")
 from thesis_defense_ppt import ThesisDefensePPT
 
 ppt = ThesisDefensePPT("答辩PPT.pptx", logo_path="校徽.png", name_path="校名.png")
@@ -71,8 +69,8 @@ ppt.save()
 
 | 元素 | 字体 | 字号 | 颜色 |
 |------|------|------|------|
-| 封面中文标题 | 微软雅黑 | 36pt | 白色 |
-| 封面英文标题 | Arial | 22pt | 白色 |
+| 封面中文标题 | 微软雅黑 | 30pt | 白色 |
+| 封面英文标题 | Arial | 22pt | #003399 |
 | 内容页标题 | 微软雅黑 | 32pt 加粗 | #C00000 |
 | 副标题栏 | 微软雅黑 | 20pt 加粗 | #333333 |
 | 正文 | 微软雅黑 | 20pt | #333333 |
@@ -84,8 +82,8 @@ ppt.save()
 1. **标题宽度 ≤ 9.5"**（x=1.5），避免与右上角校名重叠
 2. **正文起始 y=1.8"**，与副标题栏 ≥0.2" 间距
 3. **Bullet间距** 动态计算 `min(0.85", 可用高度/条目数)`，底部 ≥0.5" margin
-4. **封面英文标题** 白色文字在 Navy 条内（y=3.55），避免 Navy-on-Navy
-5. **图片** 用 `_add_image_constrained()` 保持宽高比，不要固定尺寸
+4. **封面英文标题** 在 Navy 色块下方，NAVY 色文字（不在色块内）
+5. **图片** 用 `add_picture_constrained()` 保持宽高比，不要固定尺寸
 
 ## 自定义
 
@@ -121,7 +119,7 @@ python qa_check.py 答辩PPT.pptx
 - 副标题栏与正文不重叠
 - Bullet间距均匀
 - 图片有图注
-- 封面英文清晰（白色在Navy条内）
+- 封面英文清晰（NAVY色在海军条下方）
 - 无 `【【` / `】】` 残留
 - 文字无溢出
 
